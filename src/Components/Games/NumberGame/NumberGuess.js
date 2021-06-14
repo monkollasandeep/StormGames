@@ -2,39 +2,38 @@ import React, { useState } from "react";
 import { Fragment } from "react";
 import "./NumberGuess.css";
 
-const NumberGuess = (props) => {
-  const [gameResult , setgameResult] = useState(); 
-  const [userInput , setuserInput] = useState(0); 
-  const randomNumber = Math.ceil(Math.random() * 100);
-  console.log(`${randomNumber} - randomnumber`);
+let randomNumber = Math.ceil(Math.random() * 10);
 
-  const CheckGuess = (props) => {
-    let guessedNumber = props.userInput;
-    console.log(`${guessedNumber} - guessednumber`);
+const NumberGuess = () => {
+  const [userInput, setuserInput] = useState();
+  const onChange = (e) => setuserInput(e.target.value);
+  const [gameResult, setgameResult] = useState("");
+  const [win, setWin] = useState(false);
+
+  const checkGuess = () => {
+    const guessedNumber = parseInt(userInput, setuserInput);
+    if (guessedNumber === randomNumber) {
+      setgameResult("Congratulations! You got it right.");
+      setWin(true);
+    }
     if (guessedNumber > randomNumber) {
       setgameResult("Too High! Try Again.");
-      //gameResult.style.backgroundColor = "#1e217c";
-    } else if (guessedNumber < randomNumber) {
+    }
+    if (guessedNumber < randomNumber) {
       setgameResult("Too Low! Try Again.");
-      //gameResult.style.backgroundColor = "#1e217c";
-    } else if (guessedNumber === randomNumber) {
-      setgameResult("Congratulations! You got it right.");
-      //gameResult.style.backgroundColor = "green";
-    } else {
+    }
+    if (guessedNumber === null) {
       setgameResult("Please provide a valid input.");
-      //gameResult.style.backgroundColor = "#1e217c";
     }
   };
 
-  const userInputHandler = (event) => {
-    setuserInput(event.target.value);
+  const resetHandler = () => {
+    randomNumber = Math.ceil(Math.random() * 10);
+    setgameResult("");
+    setuserInput();
+    setWin(false);
+    
   };
-
-  const submitHandler = (event) => {
-    event.preventDefault();
-    setuserInput(event.target.value);
-    CheckGuess(props);
-  }; 
 
   return (
     <Fragment>
@@ -61,13 +60,18 @@ const NumberGuess = (props) => {
                 alt="guess number"
               />
             </h1>
-            <form onSubmit={submitHandler}>
-              <input type="number" className="userinput" id="userInput" value={userInput} onChange={userInputHandler}/>
-              <button type="submit" className="checkguess">
-                Check
-              </button>
-            </form>
+            <input
+              type="number"
+              className="userinput"
+              id="userInput"
+              value={userInput}
+              onChange={onChange}
+            />
+            <button type="submit" className="checkguess" onClick={checkGuess}>
+              Check
+            </button>
             <p className="gameresult">{gameResult}</p>
+            <button type="reset" className="checkguess" onClick={resetHandler} disabled={!win}>Play Again</button>
           </div>
         </div>
       </div>

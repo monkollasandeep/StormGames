@@ -1,10 +1,14 @@
-import React from 'react';
+import React from "react";
+import Footer from "../UI/Footer";
+import HomepageLayout from "../UI/HomepageLayout";
 
-const Home = () => {
-    return (
-        <h1>storm games</h1>
-    );
+const Home = (props) => {
+  return (
+    <div>
+      <HomepageLayout isLoggedin={props.isLoggedin} setisLoggedin={props.setisLoggedin} />
+      <Footer/>
+    </div>
+  );
 };
-
 
 export default Home;

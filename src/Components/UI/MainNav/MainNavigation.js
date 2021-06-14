@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./MainNavigation.module.css";
+import stormimage from "../GameCard/GameImages/strom.png";
 
 const MainNavigation = (props) => {
   const logoutHandler = () => {
@@ -8,7 +9,11 @@ const MainNavigation = (props) => {
   };
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>Storm Games</div>
+      <div className={styles.logohead}>
+      <div className={styles.logo}>Storm</div>
+        <img src={stormimage} className="ui mini circular image" alt="strom"/>
+        <div className={styles.logo}>Games</div>
+      </div>
       <nav className={styles.nav}>
         <ul>
           {props.isLoggedin && (

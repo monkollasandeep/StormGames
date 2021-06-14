@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ProtectedRoute from "./Components/ProtectedRoute";
+import Home from "./Components/Pages/Home";
+import Signup from "./Components/Pages/Signup";
+import Login from "./Components/Pages/Login/Login";
+import Profile from "./Components/Pages/Profile";
 import MainNavigation from './Components/UI/MainNav/MainNavigation';
 import Games from "./Components/Games/Games";
 import CatPlay from "./Components/Games/CatGame/CatPlay";
 import NumberGuess from "./Components/Games/NumberGame/NumberGuess";
 import TimeBomb from "./Components/Games/TimeBomb/TimeBomb";
-import Home from "./Components/Pages/Home";
-import Signup from "./Components/Pages/Signup";
-import Login from "./Components/Pages/Login/Login";
-import Profile from "./Components/Pages/Profile";
+import Pokeman from "./Components/Games/PokemanApiGame/Pokeman";
+import UserApi from "./Components/Games/UserApiGame/UserApi";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
 
 
 const App = () => {
@@ -75,6 +78,23 @@ const App = () => {
           isLoggedin={isLoggedin}
           setisLoggedin={loginHandler}
         />
+        <ProtectedRoute
+          exact
+          path="/games/pokemanapi"
+          component={Pokeman}
+          isLoggedin={isLoggedin}
+          setisLoggedin={loginHandler}
+        />
+        <ProtectedRoute
+          exact
+          path="/games/usersapi"
+          component={UserApi}
+          isLoggedin={isLoggedin}
+          setisLoggedin={loginHandler}
+        />
+        <Route path="*" exact>
+          <Home isLoggedin={isLoggedin} setisLoggedin={loginHandler} />
+        </Route>
       </Switch>
     </Router>
   );
